@@ -8,7 +8,7 @@ $ErrorActionPreference = 'Stop'
 
 $engineDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $distDir = Join-Path $engineDir 'dist'
-$runnerExe = Join-Path $distDir 'PositionAnalyzer\PositionAnalyzer.exe'
+$runnerExe = Join-Path $distDir 'Kinetic\Kinetic.exe'
 $issPath = Join-Path $engineDir 'PositionAnalyzerInstaller.iss'
 $buildRunnerScript = Join-Path $engineDir 'build_runner.ps1'
 $localProgramDir = Join-Path $env:LOCALAPPDATA 'Programs'
@@ -52,7 +52,7 @@ if ($LASTEXITCODE -ne 0) {
     throw "Installer build failed with exit code $LASTEXITCODE"
 }
 
-$installerPath = Join-Path $distDir 'PositionAnalyzer-Setup.exe'
+$installerPath = Join-Path $distDir 'Kinetic-Setup.exe'
 if (Test-Path $installerPath) {
     Write-Host "Built installer: $installerPath"
 } else {

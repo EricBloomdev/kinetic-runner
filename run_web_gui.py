@@ -1,5 +1,5 @@
 """
-PositionAnalyzer - Raw Input Mouse Tracker
+Kinetic - Raw Input Mouse Tracker
 ==========================================
 Uses Windows Raw Input API to capture actual hardware mickeys from any mouse.
 Runs at the mouse's native polling rate (typically 125-1000 Hz).
@@ -32,20 +32,65 @@ def get_app_base_dir():
     return os.path.dirname(os.path.abspath(__file__))
 
 
+def apply_window_icon(window):
+    """Apply the Kinetic icon to a Tk window (replaces default Tk feather icon)."""
+    app_base = get_app_base_dir()
+    candidates = []
+
+    # In frozen builds, using the exe path directly is the most reliable way
+    # to pick up the embedded app icon resource.
+    if getattr(sys, 'frozen', False):
+        candidates.append(os.path.abspath(sys.executable))
+
+    candidates.extend([
+        os.path.join(app_base, 'kinetic.ico'),
+        os.path.join(app_base, 'assets', 'kinetic.ico'),
+        os.path.join(app_base, 'Kinetic.exe'),
+        os.path.join(os.path.dirname(app_base), 'ENGINE', 'assets', 'kinetic.ico'),
+    ])
+
+    for icon_path in candidates:
+        if not os.path.exists(icon_path):
+            continue
+        try:
+            window.iconbitmap(default=icon_path)
+            return icon_path
+        except Exception:
+            continue
+
+    # Last resort: override the default Tk feather icon with a transparent image.
+    try:
+        transparent_icon = tk.PhotoImage(width=1, height=1)
+        window._transparent_icon = transparent_icon
+        window.iconphoto(False, transparent_icon)
+        return None
+    except Exception:
+        pass
+
+    return None
+
+
 def get_user_data_dir():
     """Return a writable per-user directory for local runner files."""
     base_dir = os.environ.get('LOCALAPPDATA')
     if not base_dir:
         base_dir = os.path.join(os.path.expanduser('~'), 'AppData', 'Local')
 
-    user_data_dir = os.path.join(base_dir, 'PositionAnalyzer')
+    current_dir = os.path.join(base_dir, 'Kinetic')
+    legacy_dir = os.path.join(base_dir, 'PositionAnalyzer')
+    if os.path.isdir(current_dir):
+        user_data_dir = current_dir
+    elif os.path.isdir(legacy_dir):
+        user_data_dir = legacy_dir
+    else:
+        user_data_dir = current_dir
     os.makedirs(user_data_dir, exist_ok=True)
     return user_data_dir
 
 
 def get_user_data_config_path():
     """Return the shared per-user config path."""
-    return os.path.join(get_user_data_dir(), 'positionanalyzer_config.txt')
+    return os.path.join(get_user_data_dir(), 'kinetic_config.txt')
 
 
 def get_install_info_path():
@@ -57,7 +102,9 @@ def get_config_paths():
     """Return possible config file locations in priority order."""
     return [
         get_user_data_config_path(),
+        os.path.join(get_app_base_dir(), 'kinetic_config.txt'),
         os.path.join(get_app_base_dir(), 'positionanalyzer_config.txt'),
+        os.path.join(os.path.expanduser('~'), '.kinetic_config.txt'),
         os.path.join(os.path.expanduser('~'), '.positionanalyzer_config.txt'),
     ]
 
@@ -155,7 +202,7 @@ WINDOW_WIDTH = 420
 WINDOW_HEIGHT = 320
 DEFAULT_WINDOW_X = 50
 DEFAULT_WINDOW_Y = 360
-STARTUP_SHORTCUT_NAME = "PositionAnalyzer.lnk"
+STARTUP_SHORTCUT_NAME = "Kinetic.lnk"
 
 # Active Aiming Zone (AAZ) - adaptive model of where the user actually aims.
 # If position drifts far outside the AAZ and any brief pause occurs,
@@ -629,7 +676,8 @@ class MouseTrackerGUI:
     def setup_gui(self):
         """Create the main GUI window."""
         self.root = tk.Tk()
-        self.root.title("PositionAnalyzer")
+        self.root.title("Kinetic")
+        apply_window_icon(self.root)
         self.root.geometry(self._get_initial_geometry())
         self.root.resizable(False, False)
         self.root.attributes('-topmost', bool(self.settings.get('always_on_top')))
@@ -870,7 +918,7 @@ class MouseTrackerGUI:
             return
 
         window = tk.Toplevel(self.root)
-        window.title('PositionAnalyzer - Settings')
+        window.title('Kinetic - Settings')
         window.resizable(False, False)
         window.configure(bg=RUNNER_BG)
         window.minsize(372, 0)
@@ -1504,7 +1552,7 @@ class MouseTrackerGUI:
         if self.closing:
             return
 
-        print("✅ Setup complete — closing PositionAnalyzer")
+        print("✅ Setup complete — closing Kinetic")
         self.closing = True
         try:
             self.root.after(0, self.root.destroy)
@@ -1592,7 +1640,7 @@ class MouseTrackerGUI:
             resp = requests.post(
                 f"{WEB_SERVER_URL}/api/save_session",
                 json=payload,
-                timeout=30
+                timeout=300  # 5 minutes for large file uploads
             )
 
             if resp.status_code == 200:
@@ -1629,7 +1677,7 @@ class MouseTrackerGUI:
     # -------------------------------------------------------------------------
     def run(self):
         """Start the application."""
-        print(f"\n🎮 PositionAnalyzer")
+        print(f"\n🎮 Kinetic")
         print(f"   User: {self.username}")
         print(f"   Calibration: {RATIO:.2f} mickeys/mm")
         print(f"   Controls: F8=Record, F12=Hide")
@@ -1698,6 +1746,7 @@ def has_cli_flag(flag):
 def show_setup_message(title, message, is_error=False):
     """Show a simple setup dialog for installer-driven launches."""
     dialog_root = tk.Tk()
+    apply_window_icon(dialog_root)
     dialog_root.withdraw()
     dialog_root.attributes('-topmost', True)
 
@@ -1717,19 +1766,19 @@ def initialize_installation(show_message=True):
 
     if getattr(sys, 'frozen', False) and not registered:
         message = (
-            "PositionAnalyzer could not save its install location automatically. "
-            "Run PositionAnalyzer.exe again from its installed folder to retry."
+            "Kinetic could not save its install location automatically. "
+            "Run Kinetic.exe again from its installed folder to retry."
         )
         if show_message:
-            show_setup_message("PositionAnalyzer Setup", message, is_error=True)
+            show_setup_message("Kinetic Setup", message, is_error=True)
         return False
 
     message = (
-        "PositionAnalyzer is initialized and ready. "
+        "Kinetic is initialized and ready. "
         "Return to the website to continue; this window will close after you confirm."
     )
     if show_message:
-        show_setup_message("PositionAnalyzer Setup Complete", message)
+        show_setup_message("Kinetic Setup Complete", message)
     return True
 
 
@@ -1781,7 +1830,8 @@ def show_login_window(username_prefill='', error_message=None):
     MAX_LEN = 128
 
     login_root = tk.Tk()
-    login_root.title("PositionAnalyzer - Log In")
+    login_root.title("Kinetic - Log In")
+    apply_window_icon(login_root)
     login_root.configure(bg=BG)
     login_root.geometry("340x280")
     login_root.resizable(False, False)

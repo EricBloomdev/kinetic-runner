@@ -12,7 +12,7 @@ WEB_SERVER_URL = "http://localhost:5000"
 CALIBRATION_BG = "#0E0E0E"
 CALIBRATION_TEXT_COLOR = "#888888"
 CALIBRATION_BUTTON_COLOR = "#FFB347"
-CALIBRATION_FONT_FAMILY = "Segoe UI"
+CALIBRATION_FONT_FAMILY = ('IBM Plex Mono', 'monospace')
 CALIBRATION_TEXT_SIZE = 12
 MIN_DPI = 200
 MAX_DPI = 16000
@@ -22,7 +22,7 @@ CALIBRATION_TIMEOUT_WARNING_SECONDS = 15
 class CalibrationGUI:
     def __init__(self, root, username=None, token=None):
         self.root = root
-        self.root.title("PositionAnalyzer - DPI Calibration Test")
+        self.root.title("Kinetic - DPI Calibration Test")
         self.root.geometry("500x420")
         self.root.configure(bg=CALIBRATION_BG)
         self.root.resizable(False, False)

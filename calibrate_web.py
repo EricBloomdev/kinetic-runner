@@ -40,7 +40,7 @@ def save_calibration_to_web(username, mickeys_per_mm):
 def run_failproof_calibration():
     global total_mickeys_x, recording, last_x
     
-    print("🎯 POSITIONANALYZER CALIBRATION TEST")
+    print("🎯 KINETIC CALIBRATION TEST")
     print("="*50)
     print("This test measures your mouse sensitivity for accurate tracking.")
     print()
