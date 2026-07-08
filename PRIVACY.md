@@ -12,20 +12,21 @@ What we collect
 
 When you use Kinetic, we collect:
 
-Account information — username and hashed password, created when you register.
-Mouse movement data — raw cursor position samples (X/Y coordinates in millimeters, timestamps) recorded only during sessions you manually start and stop. No movement is captured outside of an active recording session.
-Calibration data — your measured mickeys-per-millimeter ratio and mousepad dimensions, used to normalize movement data.
-Session metadata — session duration, start time, total data points. Stored alongside movement data.
-Usage preferences — local settings saved on your machine (AFK timeout, window position, startup preference). These stay on your device and are not sent to our servers except as part of session context.
+- Account information — username and hashed password, created when you register.
+- Mouse movement data — raw cursor position samples (X/Y coordinates in millimeters, timestamps) recorded only during sessions you manually start and stop. No movement is captured outside of an active recording session.
+- Calibration data — your measured mickeys-per-millimeter ratio and mousepad dimensions, used to normalize movement data.
+- Session metadata — session duration, start time, total data points. Stored alongside movement data.
+- Usage preferences — local settings saved on your machine (AFK timeout, window position, startup preference). These stay on your device and are not sent to our servers except as part of session context.
+
 We do not collect:
 
-Keystrokes or keyboard input of any kind
-Clipboard contents
-Screenshots or screen captures
-File system contents or application data
-Browser history or activity outside of tracekinetic.com
-Any data outside of an active, user-started recording session
-How we use your data
+- Keystrokes or keyboard input of any kind
+- Clipboard contents
+- Screenshots or screen captures
+- File system contents or application data
+- Browser history or activity outside of tracekinetic.com
+- Any data outside of an active, user-started recording session
+- How we use your data
 
 Mouse movement data is processed to compute analysis metrics (smoothness, control, consistency, efficiency, speed, and related sub-metrics) and generate visualizations. Results are stored and displayed back to you through your dashboard.
 Account information is used solely to authenticate you and associate your sessions with your account.
@@ -52,11 +53,11 @@ Your rights
 
 You have the right to:
 
-Access the data we hold about you
-Request correction of inaccurate data
-Request deletion of your data
-Ask what data we have collected
-To exercise any of these rights, email eric@tracekinetic.com.
+- Access the data we hold about you
+- Request correction of inaccurate data
+- Request deletion of your data
+- Ask what data we have collected
+- To exercise any of these rights, email eric@tracekinetic.com.
 
 Changes to this policy
 
