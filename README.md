@@ -30,19 +30,22 @@ The installer is built with [Inno Setup](https://jrsoftware.org/isinfo.php) usin
 |---|---|
 | `run_web_gui.py` | Main runner application — recording, session upload, login |
 | `calibrate_gui.py` | Desktop calibration tool |
-| `calibrate_web.py` | Browser-based calibration flow |
+| `calibrate_web.py` | Terminal-based calibration tool (alternative to the GUI version) |
 | `stats.py` | Local stats helpers |
-| `PositionAnalyzer.spec` | PyInstaller build specification |
+| `Kinetic.spec` | PyInstaller build specification |
 | `PositionAnalyzerInstaller.iss` | Inno Setup installer script |
 | `build_runner.ps1` | Build script for the executable |
 | `build_installer.ps1` | Build script for the installer |
 
 ## Code signing
 
-This release is not yet code signed. A future release will include
-Azure Trusted Signing. You can verify the source matches the binary
-by building it yourself from this repo using `build_runner.ps1` and
-`build_installer.ps1`.
+This release is not yet code signed. A future release will include Azure Trusted Signing. You can verify the source matches the binary by building it yourself from this repo using `build_runner.ps1` and `build_installer.ps1`.
+
+## Security reporting
+
+If you find a security issue, please report it privately by email: eric@tracekinetic.com
+
+Please do not open a public issue for vulnerabilities — see [SECURITY.md](SECURITY.md) for details.
 
 ## License
 
