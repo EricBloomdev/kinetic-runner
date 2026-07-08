@@ -22,7 +22,7 @@ This repository is public so anyone can verify exactly what the downloadable ins
 
 The runner is a lightweight Python application, packaged into a standalone Windows executable with [PyInstaller](https://pyinstaller.org/). The build is fully reproducible from this source using the included `.spec` file.
 
-The installer is built with [Inno Setup](https://jrsoftware.org/isinfo.php) using `PositionAnalyzerInstaller.iss`, included in this repo — you can read exactly what it installs and where.
+The installer is built with [Inno Setup](https://jrsoftware.org/isinfo.php) using `KineticInstaller.iss`, included in this repo — you can read exactly what it installs and where.
 
 ## Files
 
