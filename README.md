@@ -37,6 +37,13 @@ The installer is built with [Inno Setup](https://jrsoftware.org/isinfo.php) usin
 | `build_runner.ps1` | Build script for the executable |
 | `build_installer.ps1` | Build script for the installer |
 
+## Code signing
+
+This release is not yet code signed. A future release will include
+Azure Trusted Signing. You can verify the source matches the binary
+by building it yourself from this repo using `build_runner.ps1` and
+`build_installer.ps1`.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
