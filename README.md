@@ -33,7 +33,7 @@ The installer is built with [Inno Setup](https://jrsoftware.org/isinfo.php) usin
 | `calibrate_web.py` | Terminal-based calibration tool (alternative to the GUI version) |
 | `stats.py` | Local stats helpers |
 | `Kinetic.spec` | PyInstaller build specification |
-| `PositionAnalyzerInstaller.iss` | Inno Setup installer script |
+| `KineticInstaller.iss` | Inno Setup installer script |
 | `build_runner.ps1` | Build script for the executable |
 | `build_installer.ps1` | Build script for the installer |
 
