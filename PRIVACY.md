@@ -35,7 +35,7 @@ We do not use your data for advertising, sell it to third parties, or share it w
 
 Data storage and security
 
-Your data is stored on servers operated by us. Session movement data is stored as flat files. Analysis results and account information are stored in SQLite databases. We apply standard security practices to protect stored data.
+Your data is stored on servers operated by Kinetic. Session movement data is stored as flat files. Analysis results and account information are stored in SQLite databases. We apply standard security practices to protect stored data.
 
 We do not currently offer end-to-end encryption of stored movement data. If this is a concern, you can delete your account and data at any time (see below).
 
