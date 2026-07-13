@@ -53,4 +53,4 @@ MIT — see [LICENSE](LICENSE).
 
 ## Questions or concerns
 
-If you have a question about what this software does, reach out via my email eric@tracekinetic.com or open an issue on this repo.
+If you have a question about what this software does, reach out by email at eric@tracekinetic.com or open an issue on this repo.
